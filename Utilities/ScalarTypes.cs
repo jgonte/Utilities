@@ -1,0 +1,30 @@
+﻿namespace Utilities
+{
+    public enum ScalarTypes
+    {
+        Integer,
+        Boolean,
+        Byte,
+        Char,
+        DateTime,
+        Date,
+        Decimal,
+        Float,
+        Guid,
+        Image,
+        Money,
+        String,
+        Timestamp,
+        Enumeration,
+        Email,
+        Phone,
+        Url,
+        UserId,
+        Signature,
+        Geography,
+        Long,
+        Binary,
+        MonthYear,
+        Password
+    }
+}
