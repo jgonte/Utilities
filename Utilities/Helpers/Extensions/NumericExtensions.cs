@@ -1,21 +1,33 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Utilities
 {
     public static class NumericExtensions
-    {
-        public static bool IsBetween(this int number, int minValue, int maxValue)
+    {        
+        public static bool IsGreaterThan<T>(this T value, T other) where T : IComparable<T>
         {
-            return (number >= minValue && number <= maxValue);
+            return Comparer<T>.Default.Compare(value, other) > 0;
         }
 
-        public static bool IsBetween(this uint number, uint minValue, uint maxValue)
+        public static bool IsGreaterThanOrEqual<T>(this T value, T other) where T : IComparable<T>
         {
-            return (number >= minValue && number <= maxValue);
+            return Comparer<T>.Default.Compare(value, other) >= 0;
         }
 
-        public static bool IsBetween(this long number, long minValue, long maxValue)
+        public static bool IsLessThan<T>(this T value, T other) where T : IComparable<T>
         {
-            return (number >= minValue && number <= maxValue);
+            return Comparer<T>.Default.Compare(value, other) < 0;
+        }
+
+        public static bool IsLessThanOrEqual<T>(this T value, T other) where T : IComparable<T>
+        {
+            return Comparer<T>.Default.Compare(value, other) <= 0;
+        }
+
+        public static bool IsBetween<T>(this T value, T minValue, T maxValue) where T : IComparable<T>
+        {
+            return value.CompareTo(minValue) >= 0 && value.CompareTo(maxValue) <= 0;
         }
     }
 }

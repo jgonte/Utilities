@@ -30,7 +30,7 @@ namespace Utilities
                 }
                 else
                 {
-                    throw new InvalidOperationException("The operand of the unaty expression must be of type MemberExpression");
+                    throw new InvalidOperationException("The operand of the unary expression must be of type MemberExpression");
                 }
             }
             else
