@@ -36,7 +36,9 @@ namespace Utilities
             if (!TypeAccessors.ContainsKey(key))
             {
                 TypeAccessor typeAccessor = new TypeAccessor(type, bindings);
+
                 TypeAccessors.Add(key, typeAccessor);
+
                 return typeAccessor;
             }
 

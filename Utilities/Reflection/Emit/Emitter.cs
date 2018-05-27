@@ -185,7 +185,8 @@ namespace Utilities
                         expressions.Add(copier);
                     }
                  }
-            }.Traverse(type);
+            }
+            .Traverse(type);
 
             return expressions;
         }
@@ -194,7 +195,7 @@ namespace Utilities
         {
             if (type.IsValueType) // Check if there is an interface that contains the property info
             {
-                Type interfaceType = type.GetInterfaceForProperty(propertyInfo.Name);
+                var interfaceType = type.GetInterfaceForProperty(propertyInfo.Name);
 
                 if (interfaceType != null) // Use the interface type
                 {
@@ -210,12 +211,17 @@ namespace Utilities
 
             // At this point objects are not value types
             // Cast the objects to their respective types
-            UnaryExpression objectToCloneCast = Expression.TypeAs(objectToClone, type);
-            UnaryExpression clonedObjectCast = Expression.TypeAs(clonedObject, type);
+            var objectToCloneCast = Expression.TypeAs(objectToClone, type);
 
-            if (propertyInfo.CanRead && propertyInfo.CanWrite)
+            var clonedObjectCast = Expression.TypeAs(clonedObject, type);
+
+            var setMethod = propertyInfo.GetSetMethod();
+
+            var getMethod = propertyInfo.GetGetMethod();
+
+            if (propertyInfo.CanRead && getMethod != null && propertyInfo.CanWrite && setMethod != null)
             {
-                return Expression.Call(clonedObjectCast, propertyInfo.GetSetMethod(), Expression.Call(objectToCloneCast, propertyInfo.GetGetMethod()));
+                return Expression.Call(clonedObjectCast, setMethod, Expression.Call(objectToCloneCast, getMethod));
             }
 
             return null;
@@ -223,7 +229,7 @@ namespace Utilities
 
         public static IList<ParameterExpression> GetMethodParameters(MethodInfo methodInfo)
         {
-            List<ParameterExpression> list = new List<ParameterExpression>();
+            var list = new List<ParameterExpression>();
 
             foreach (ParameterInfo parameterInfo in methodInfo.GetParameters())
             {
