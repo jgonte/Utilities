@@ -2,29 +2,30 @@
 {
     public enum ScalarTypes
     {
-        Integer,
         Boolean,
         Byte,
+        Integer,
+        Long,
+        Float,
+        Decimal,   
         Char,
+        String,
         DateTime,
         Date,
-        Decimal,
-        Float,
-        Guid,
-        Image,
-        Money,
-        String,
         Timestamp,
-        Enumeration,
-        Email,
-        Phone,
-        Url,
-        UserId,
-        Signature,
-        Geography,
-        Long,
+        Guid,
+        Image,                   
         Binary,
-        MonthYear,
-        Password
+        // Value objects should belong
+        //Money,
+        //Enumeration,
+        //Email,
+        //Phone,
+        //Url,
+        //UserId,
+        //Signature,
+        //Geography,
+        //MonthYear,
+        //Password
     }
 }
