@@ -8,16 +8,16 @@ namespace CodeGeneration
     {
         public CodeWriterElement(T codeWriter)
         {
-            CodeWriter = codeWriter;
+            Builder = codeWriter;
         }
 
-        public T CodeWriter { get; set; }
+        public T Builder { get; set; }
 
         public abstract void Emit(TextWriter writer);
 
         public virtual void Indent(TextWriter writer)
         {
-            writer.Write(new string(' ', CodeWriter.Indentation * 4));
+            writer.Write(new string(' ', Builder.Indentation * 4));
         }
 
         public override string ToString()

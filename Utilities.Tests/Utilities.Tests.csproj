@@ -67,6 +67,7 @@
     <Compile Include="Reflection\Proxy\ProxyFactoryTest.cs" />
     <Compile Include="Reflection\TypeExtensionsTest.cs" />
     <Compile Include="Reflection\TypeTraversalTest.cs" />
+    <Compile Include="Validation\StringValidationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

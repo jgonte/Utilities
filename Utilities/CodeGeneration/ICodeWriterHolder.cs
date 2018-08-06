@@ -2,6 +2,6 @@
 {
     public interface ICodeWriterHolder<T> where T : CodeWriter
     {
-        T CodeWriter { get; set; }
+        T Builder { get; set; }
     }
 }

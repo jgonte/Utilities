@@ -14,8 +14,11 @@
         Double,
         Date,
         Time,
+        DateTime,
         Timestamp,
         Clob,
-        Blob
+        Blob,
+        Guid,
+        Money
     }
 }

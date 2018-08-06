@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -93,7 +92,8 @@ namespace Utilities
         /// <returns></returns>
         public static MethodBuilder CreateMethod(this TypeBuilder typeBuilder, MethodInfo methodInfo, MethodAttributes attributes = MethodAttributes.Public)
         {
-            Type[] parameterTypes = methodInfo.GetParameters().Select(p => p.ParameterType).ToArray();
+            Type[] parameterTypes = methodInfo.GetParameters().SelectToArray(p => p.ParameterType);
+
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodInfo.Name, attributes, methodInfo.ReturnType, parameterTypes);
 
             return methodBuilder;

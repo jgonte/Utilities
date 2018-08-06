@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Utilities.Builders
+﻿namespace Utilities.Builders
 {
     /// <summary>
     /// Creates an object using an abstract factory

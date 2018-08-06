@@ -3,7 +3,7 @@
     public static class IDescribedElementBuilderExtensions
     {
         /// <summary>
-        /// Sets the description of the model element
+        /// Sets the description of the object
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="builder"></param>
