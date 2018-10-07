@@ -16,12 +16,12 @@
         Guid,
         Image,                   
         Binary,
+        Uri,
         // Value objects should belong
         //Money,
         //Enumeration,
         //Email,
         //Phone,
-        //Url,
         //UserId,
         //Signature,
         //Geography,

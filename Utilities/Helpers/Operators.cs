@@ -1,14 +1,18 @@
 ﻿namespace Utilities
 {
-    public enum ComparisonOperators
+    public enum SingleValuedFieldComparisonOperators
     {
         Equal = 0,
         NotEqual,
         LessThan,
         LessThanOrEqual,
         GreaterThan,
-        GreaterThanOrEqual,
-        Contains
+        GreaterThanOrEqual
+    }
+
+    public enum MultiplleValuedFieldComparisonOperators
+    {
+        IsIn = 0
     }
 
     public enum LogicalOperators
