@@ -19,6 +19,7 @@
         Clob,
         Blob,
         Guid,
-        Money
+        Money,
+        UserId // Special marker for the data type to store the identity of the user
     }
 }
