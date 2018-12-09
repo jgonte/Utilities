@@ -4,6 +4,7 @@
     {
         Char,
         Varchar,
+        NVarchar,
         Boolean,
         SmallInt,
         Integer,

@@ -17,11 +17,11 @@
         Image,                   
         Binary,
         Uri,
+        Email,
         UserId, // Special marker type to manage persisting the id of the user to the data store
         // Value objects should belong
         //Money,
         //Enumeration,
-        //Email,
         //Phone,
         //Signature,
         //Geography,

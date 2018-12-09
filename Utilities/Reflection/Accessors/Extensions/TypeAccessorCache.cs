@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Utilities
@@ -10,6 +9,11 @@ namespace Utilities
     /// </summary>
     public static class TypeAccessorCache
     {
+        /// <summary>
+        /// Cached type accessors
+        /// </summary>
+        public static ConcurrentDictionary<string, TypeAccessor> TypeAccessors { get; private set; }
+
         static TypeAccessorCache()
         {
             TypeAccessors = new ConcurrentDictionary<string, TypeAccessor>();
@@ -37,17 +41,12 @@ namespace Utilities
             {
                 TypeAccessor typeAccessor = new TypeAccessor(type, bindings);
 
-                TypeAccessors.Add(key, typeAccessor);
+                TypeAccessors.TryAdd(key, typeAccessor);
 
                 return typeAccessor;
             }
 
             return TypeAccessors[key];
         }
-
-        /// <summary>
-        /// Cached type accessors
-        /// </summary>
-        public static IDictionary<string, TypeAccessor> TypeAccessors { get; private set; }
     }
 }
