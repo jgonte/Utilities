@@ -1,6 +1,6 @@
 ﻿namespace Utilities
 {
-    public enum SetOperationTypes
+    public enum SetOperations
     {
         Union,
         UnionAll,
