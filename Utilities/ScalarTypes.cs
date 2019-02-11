@@ -25,7 +25,6 @@
         //Phone,
         //Signature,
         //Geography,
-        //MonthYear,
-        //Password
+        //MonthYear
     }
 }

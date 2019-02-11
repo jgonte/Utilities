@@ -19,7 +19,7 @@ namespace Utilities.Builders
             {
                 if (Builders.SingleOrDefault(b => b.Name == builder.Name) != null)
                 {
-                    throw new System.InvalidOperationException($"Builder of name: '{builder.Name}' already exists.");
+                    throw new InvalidOperationException($"Builder of name: '{builder.Name}' already exists.");
                 }
 
                 Builders.Add(builder);

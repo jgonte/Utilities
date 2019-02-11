@@ -1,7 +1,11 @@
-﻿namespace Utilities.Validation
+﻿using System.Text.RegularExpressions;
+
+namespace Utilities.Validation
 {
     public static class StringValidationExtensions
     {
+        private static Regex _emailValidationRegex = new Regex(RegularExpressions.Email, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
+
         public static void ValidateNotEmpty(this string value, ValidationResult result, string propertyName, string message = null)
         {
             if (string.IsNullOrEmpty(value))
@@ -24,6 +28,38 @@
                 });
             }
         }
+
+        public static void ValidateEmail(this string value, ValidationResult result, string propertyName, string message = null)
+        {
+            if (!string.IsNullOrEmpty(value) && !_emailValidationRegex.IsMatch(value))
+            {
+                result.Errors.Add(new ValidationError
+                {
+                    PropertyName = propertyName,
+                    Message = message ?? $"Value of '{propertyName}' must be a valid email"
+                });
+            }
+        }
+
+        public static void ValidateIsEqual(
+            this string value, 
+            ValidationResult result, 
+            string propertyName,
+            string valueToCompare,
+            string propertyToCompareName,
+            string message = null)
+        {
+            if (value != valueToCompare)
+            {
+                result.Errors.Add(new ValidationError
+                {
+                    PropertyName = propertyName,
+                    Message = message ?? $"Value of '{propertyName}' must be equal to value of '{propertyToCompareName}'"
+                });
+            }
+        }
+
+        
 
     }
 }
