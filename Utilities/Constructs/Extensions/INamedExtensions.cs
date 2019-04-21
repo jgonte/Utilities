@@ -15,5 +15,17 @@
 
             return builder;
         }
+
+        /// <summary>
+        /// Validates the name if required
+        /// </summary>
+        /// <param name="named"></param>
+        public static void NameIsRequired(this INamed named)
+        {
+            if (string.IsNullOrWhiteSpace(named.Name))
+            {
+                throw new System.InvalidOperationException("Name is required");
+            }
+        }
     }
 }

@@ -61,6 +61,21 @@ namespace Utilities.Builders
         }
 
         /// <summary>
+        /// Configures a single builder
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="configure"></param>
+        /// <returns></returns>
+        public BuildersConfigurator<T> Configure(string name, Action<T> configure)
+        {
+            var builder = Builders.Single(b => b.Name == name);
+
+            configure(builder);
+
+            return this;
+        }
+
+        /// <summary>
         /// Removes builders from the configurator by their names
         /// </summary>
         /// <param name="names"></param>
