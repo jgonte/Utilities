@@ -13,7 +13,7 @@ namespace Utilities.Builders
             Builders = builders;
         }
 
-        public BuildersConfigurator<T> Add(params T[] builders)
+        public virtual BuildersConfigurator<T> Add(params T[] builders)
         {
             foreach (var builder in builders)
             {
@@ -21,6 +21,8 @@ namespace Utilities.Builders
                 {
                     throw new InvalidOperationException($"Builder of name: '{builder.Name}' already exists.");
                 }
+
+                ConfigureExtra(builder);
 
                 Builders.Add(builder);
             }
@@ -39,15 +41,26 @@ namespace Utilities.Builders
                 configures.Select(
                     configure => 
                     {
-                        var b = new T();
+                        var builder = new T();
 
-                        configure(b);
+                        configure(builder);
 
-                        return b;
+                        ConfigureExtra(builder);
+
+                        return builder;
                     }
                 )
                 .ToArray()
             );
+        }
+
+        /// <summary>
+        /// Hook to perform extra configuration in derived classes
+        /// </summary>
+        /// <param name="builder"></param>
+        protected virtual void ConfigureExtra(T builder)
+        {
+            // Do nothing
         }
 
         public IEnumerable<T> Configure(params string[] names)
@@ -58,6 +71,21 @@ namespace Utilities.Builders
             }
 
             return Builders.Where(b => names.Contains(b.Name));
+        }
+
+        /// <summary>
+        /// Configures a single builder
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="configure"></param>
+        /// <returns></returns>
+        public BuildersConfigurator<T> Configure(string name, Action<T> configure)
+        {
+            var builder = Builders.Single(b => b.Name == name);
+
+            configure(builder);
+
+            return this;
         }
 
         /// <summary>

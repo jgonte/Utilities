@@ -19,6 +19,7 @@
         Uri,
         Email,
         UserId, // Special marker type to manage persisting the id of the user to the data store
+        Object,
         // Value objects should belong
         //Money,
         //Enumeration,

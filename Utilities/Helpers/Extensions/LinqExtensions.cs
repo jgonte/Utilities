@@ -31,5 +31,17 @@ namespace Utilities
         {
             return source.Select(selector).ToArray();
         }
+
+        /// <summary>
+        /// Returns true whether the source contains any of the value in values
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static bool ContainsAny<TSource>(this IEnumerable<TSource> source, params TSource[] values)
+        {
+            return source.Intersect(values).Any();
+        }
     }
 }
