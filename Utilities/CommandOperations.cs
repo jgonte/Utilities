@@ -6,8 +6,9 @@
         Create = 2,
         Update = 3,
         Delete = 4,
-        AddLinkedEntity = 5,
-        ReplaceLinkedEntity = 6,
-        AddValueObjects = 7
+        DeleteCollection = 5,
+        AddLinkedEntity = 6,
+        ReplaceLinkedEntity = 7,
+        AddValueObjects = 8
     }
 }
