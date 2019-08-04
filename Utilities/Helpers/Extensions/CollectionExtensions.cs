@@ -83,5 +83,36 @@ namespace Utilities
                 builder.Remove(lastSeparator, separator.Length);
             }
         }
+
+        public static IEnumerable<T> SkipLast<T>(this IEnumerable<T> source, uint count)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            var toTake = source.Count() - count;
+
+            if (toTake < 1)
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            Queue<T> saveList = new Queue<T>();
+
+            int i = 0;
+
+            foreach (T item in source)
+            {
+                if (i < toTake)
+                {
+                    saveList.Enqueue(item);
+
+                    ++i;
+                }
+            }
+
+            return saveList.AsEnumerable();
+        }
     }
 }
