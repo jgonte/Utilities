@@ -29,7 +29,7 @@ namespace Utilities
         /// <returns></returns>
         public static TResult[] SelectToArray<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            return source.Select(selector).ToArray();
+            return source?.Select(selector).ToArray();
         }
 
         /// <summary>
