@@ -100,6 +100,7 @@ namespace Utilities.Builders
                 Builders.Clear();
             }
 
+            //TODO: Maybe throw an exception when the member is not found?
             Builders = Builders.Where(b => !names.Contains(b.Name)).ToList();
 
             return this;

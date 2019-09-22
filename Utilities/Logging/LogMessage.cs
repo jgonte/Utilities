@@ -13,7 +13,7 @@ namespace Utilities
 
         public Levels Level { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
         public string Message { get; set; }
 
