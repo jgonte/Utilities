@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Utilities.Builders
 {
-    public class BuildersConfigurator<T> where T : INamed, new()
+    public class BuildersConfigurator<T> where T : IBuilder, INamed, new()
     {
         public List<T> Builders { get; private set; }
 
@@ -21,8 +21,6 @@ namespace Utilities.Builders
                 {
                     throw new InvalidOperationException($"Builder of name: '{builder.Name}' already exists.");
                 }
-
-                ConfigureExtra(builder);
 
                 Builders.Add(builder);
             }
@@ -45,22 +43,11 @@ namespace Utilities.Builders
 
                         configure(builder);
 
-                        ConfigureExtra(builder);
-
                         return builder;
                     }
                 )
                 .ToArray()
             );
-        }
-
-        /// <summary>
-        /// Hook to perform extra configuration in derived classes
-        /// </summary>
-        /// <param name="builder"></param>
-        protected virtual void ConfigureExtra(T builder)
-        {
-            // Do nothing
         }
 
         public IEnumerable<T> Configure(params string[] names)
