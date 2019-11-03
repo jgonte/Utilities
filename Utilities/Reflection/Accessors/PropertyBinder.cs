@@ -8,7 +8,9 @@ namespace Utilities
     /// </summary>
     public class PropertyBinder
     {
-        #region Methods
+        public object Source { get; set; }
+
+        public IList<PropertyLink> PropertyLinks { get; set; }
 
         /// <summary>
         /// Copies the values of the linked properties from the source into the target
@@ -26,24 +28,17 @@ namespace Utilities
                 throw new ArgumentNullException("target");
             }
 
-            TypeAccessor sourceAccessor = Source.GetTypeAccessor();
-            TypeAccessor targetAccessor = target.GetTypeAccessor();
+            var sourceAccessor = Source.GetTypeAccessor();
+
+            var targetAccessor = target.GetTypeAccessor();
 
             foreach (PropertyLink link in PropertyLinks)
             {
                 object value = sourceAccessor.GetValue(Source, link.Source);
+
                 targetAccessor.SetValue(target, link.Target, value);
             }
         }
-        
-        #endregion
 
-        #region Properties
-
-        public object Source { get; set; }
-
-        public IList<PropertyLink> PropertyLinks { get; set; }
-
-        #endregion
     }
 }

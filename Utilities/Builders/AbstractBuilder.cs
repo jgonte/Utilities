@@ -29,5 +29,6 @@
         public abstract T Create();
 
         public abstract void Initialize(T obj);
+
     }
 }

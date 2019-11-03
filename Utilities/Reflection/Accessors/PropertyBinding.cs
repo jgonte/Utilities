@@ -5,6 +5,10 @@ namespace Utilities
 {
     public class PropertyBinding
     {
+        private object _object; // The object to be bound to
+
+        private PropertyAccessor _accessor; // The property accessor to set and get the value from
+
         public PropertyBinding(object o, string propertyName)
         {
             _object = o;
@@ -28,8 +32,5 @@ namespace Utilities
         {
             return _accessor.GetValue(_object);
         }
-
-        private object _object; // The object to be bound to
-        private PropertyAccessor _accessor; // The property accessor to set and get the value from
     }
 }
