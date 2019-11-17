@@ -49,7 +49,7 @@ namespace Utilities
             CreateGetter(propertyInfo);
 
             CreateSetter(propertyInfo);
-        } 
+        }
 
         #region Methods
 
@@ -76,6 +76,31 @@ namespace Utilities
         /// <param name="value">The value to be set</param>
         public void SetValue(object target, object value)
         {
+            if (value is string && PropertyType != typeof(string)) // Needs to convert from string
+            {
+                var s = (string)value;
+
+                if (PropertyType == typeof(char))
+                {
+                    char[] chars = s.ToCharArray();
+
+                    if (chars.Length > 1)
+                    {
+                        throw new InvalidOperationException("Cannot convert to character. String has more than one character");
+                    }
+
+                    value = chars[0];
+                }
+                else if (PropertyType == typeof(int))
+                {
+                    value = int.Parse(s);
+                }
+                else
+                {
+                    throw new NotImplementedException($"{nameof(SetValue)} converting from string is not implemented for property type: '{PropertyType.Name}'");
+                }
+            }
+
             _setter(target, value);
         }
 
@@ -99,7 +124,7 @@ namespace Utilities
         public object GetValue(object target)
         {
             return _getter(target);
-        } 
+        }
 
         #endregion
 

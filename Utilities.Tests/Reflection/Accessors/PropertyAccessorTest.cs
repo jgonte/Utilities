@@ -56,20 +56,29 @@ namespace Utilities.Tests
         public class AccessedClass
         {
             public string TextData { get; set; }
+
             public int IntegerData { get; set; }
+
+            public char CharacterData { get; set; }
         }
 
         public interface IAccessed
         {
             string TextData { get; set; }
+
             int IntegerData { get; set; }
+
+            char CharacterData { get; set; }
         }
 
         public struct AccessedStruct
             : IAccessed
         {
             public string TextData { get; set; }
+
             public int IntegerData { get; set; }
+
+            public char CharacterData { get; set; }
         }
 
         [TestMethod()]
@@ -83,7 +92,7 @@ namespace Utilities.Tests
             Assert.IsTrue(accessor.CanSet);
             Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
 
-            string value = "Some text";
+            var value = "Some text";
 
             AccessedClass obj = new AccessedClass();
             obj.TextData = value;
@@ -102,13 +111,33 @@ namespace Utilities.Tests
             Assert.IsTrue(accessor.CanSet);
             Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
 
-            int value = 427;
+            var value = 427;
 
             AccessedClass obj = new AccessedClass();
             obj.IntegerData = value;
 
             Assert.AreEqual(value, accessor.GetValue(obj));
         }
+
+        [TestMethod()]
+        public void PropertyAccessorClassGetValueCharTest()
+        {
+            Type type = typeof(AccessedClass);
+            PropertyInfo propertyInfo = type.GetProperty("CharacterData");
+            PropertyAccessor accessor = new PropertyAccessor(propertyInfo);
+
+            Assert.IsTrue(accessor.CanGet);
+            Assert.IsTrue(accessor.CanSet);
+            Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
+
+            var value = 'M';
+
+            AccessedClass obj = new AccessedClass();
+            obj.CharacterData = value;
+
+            Assert.AreEqual(value, accessor.GetValue(obj));
+        }
+
 
         [TestMethod()]
         public void PropertyAccessorClassBindValueIntLambdaExpressionTest()
@@ -152,11 +181,84 @@ namespace Utilities.Tests
             Assert.IsTrue(accessor.CanSet);
             Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
 
-            int value = 427;
+            var value = 427;
 
             AccessedClass obj = new AccessedClass();
             accessor.SetValue(obj, value);
             Assert.AreEqual(value, obj.IntegerData);
+        }
+
+        [TestMethod()]
+        public void PropertyAccessorClassSetValueInt_Convert_From_String_Test()
+        {
+            Type type = typeof(AccessedClass);
+            PropertyInfo propertyInfo = type.GetProperty("IntegerData");
+            PropertyAccessor accessor = new PropertyAccessor(propertyInfo);
+
+            Assert.IsTrue(accessor.CanGet);
+            Assert.IsTrue(accessor.CanSet);
+            Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
+
+            var value = "427";
+
+            AccessedClass obj = new AccessedClass();
+            accessor.SetValue(obj, value);
+            Assert.AreEqual(427, obj.IntegerData);
+        }
+
+        [TestMethod()]
+        public void PropertyAccessorClassSetValueCharTest()
+        {
+            Type type = typeof(AccessedClass);
+            PropertyInfo propertyInfo = type.GetProperty("CharacterData");
+            PropertyAccessor accessor = new PropertyAccessor(propertyInfo);
+
+            Assert.IsTrue(accessor.CanGet);
+            Assert.IsTrue(accessor.CanSet);
+            Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
+
+            var value = 'F';
+
+            AccessedClass obj = new AccessedClass();
+            accessor.SetValue(obj, value);
+            Assert.AreEqual(value, obj.CharacterData);
+        }
+
+        [TestMethod()]
+        public void PropertyAccessorClassSetValueChar_Convert_From_String_Test()
+        {
+            Type type = typeof(AccessedClass);
+            PropertyInfo propertyInfo = type.GetProperty("CharacterData");
+            PropertyAccessor accessor = new PropertyAccessor(propertyInfo);
+
+            Assert.IsTrue(accessor.CanGet);
+            Assert.IsTrue(accessor.CanSet);
+            Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
+
+            var value = "F";
+
+            AccessedClass obj = new AccessedClass();
+            accessor.SetValue(obj, value);
+            Assert.AreEqual('F', obj.CharacterData);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void PropertyAccessorClassSetValueChar_Convert_From_String_Too_Long_Value_Test()
+        {
+            Type type = typeof(AccessedClass);
+            PropertyInfo propertyInfo = type.GetProperty("CharacterData");
+            PropertyAccessor accessor = new PropertyAccessor(propertyInfo);
+
+            Assert.IsTrue(accessor.CanGet);
+            Assert.IsTrue(accessor.CanSet);
+            Assert.AreEqual(propertyInfo.PropertyType, accessor.PropertyType);
+
+            var value = "MF";
+
+            AccessedClass obj = new AccessedClass();
+            accessor.SetValue(obj, value);
+            Assert.IsNull(obj.CharacterData);
         }
 
         [TestMethod()]
