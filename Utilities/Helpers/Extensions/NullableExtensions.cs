@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Utilities
+﻿namespace Utilities
 {
     public static class NullableExtensions
     {
@@ -10,9 +8,29 @@ namespace Utilities
         /// <typeparam name="T"></typeparam>
         /// <param name="o"></param>
         /// <returns></returns>
-        public static Nullable<T> ToNullable<T>(this T o) where T : struct
+        public static T? ToNullable<T>(this T o) where T : struct
         {
-            return new Nullable<T>(o);
+            return new T?(o);
+        }
+
+        /// <summary>
+        /// Tests whether a nullable bool is false
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsFalse(this bool? value)
+        {
+            return !value.HasValue || value.Value == false;
+        }
+
+        /// <summary>
+        /// Tests whether a nullable bool is true
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsTrue(this bool? value)
+        {
+            return value.HasValue && value.Value == true;
         }
     }
 }
