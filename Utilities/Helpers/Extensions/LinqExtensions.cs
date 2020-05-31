@@ -14,7 +14,7 @@ namespace Utilities
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static List<TResult> SelectToList<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        public static List<TResult> ToList<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
             return source.Select(selector).ToList();
         }
@@ -27,7 +27,7 @@ namespace Utilities
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static TResult[] SelectToArray<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        public static TResult[] ToArray<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
             return source?.Select(selector).ToArray();
         }
@@ -40,6 +40,18 @@ namespace Utilities
         /// <param name="values"></param>
         /// <returns></returns>
         public static bool ContainsAny<TSource>(this IEnumerable<TSource> source, params TSource[] values)
+        {
+            return source.Intersect(values).Any();
+        }
+
+        /// <summary>
+        /// Returns true whether the source contains any of the value in values
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static bool ContainsAny<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> values)
         {
             return source.Intersect(values).Any();
         }

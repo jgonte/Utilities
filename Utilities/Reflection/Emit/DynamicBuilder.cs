@@ -92,7 +92,7 @@ namespace Utilities
         /// <returns></returns>
         public static MethodBuilder CreateMethod(this TypeBuilder typeBuilder, MethodInfo methodInfo, MethodAttributes attributes = MethodAttributes.Public)
         {
-            Type[] parameterTypes = methodInfo.GetParameters().SelectToArray(p => p.ParameterType);
+            Type[] parameterTypes = methodInfo.GetParameters().ToArray(p => p.ParameterType);
 
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodInfo.Name, attributes, methodInfo.ReturnType, parameterTypes);
 

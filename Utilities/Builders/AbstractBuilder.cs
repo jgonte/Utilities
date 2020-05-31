@@ -6,6 +6,8 @@
     /// <typeparam name="T"></typeparam>
     public abstract class AbstractBuilder<T> : IBuilder<T>
     {
+        public IBuilder ParentBuilder { get; set; }
+
         public T Build()
         {
             Validate();

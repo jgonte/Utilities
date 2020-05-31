@@ -52,9 +52,9 @@ namespace Utilities
         /// <returns></returns>
         public static bool HasSomeInterfaceOf(this Type type, string interfaceName)
         {
-            return (from iface in type.GetInterfaces()
-                    where iface.Name.StartsWith(interfaceName)
-                    select iface).FirstOrDefault() != null;
+            return (from @interface in type.GetInterfaces()
+                    where @interface.Name.StartsWith(interfaceName)
+                    select @interface).FirstOrDefault() != null;
         }
 
         /// <summary>

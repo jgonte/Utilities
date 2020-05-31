@@ -2,6 +2,10 @@
 {
     public interface IBuilder
     {
+        /// <summary>
+        /// The parent builder of this builder
+        /// </summary>
+        IBuilder ParentBuilder { get; set; }
     }
 
     /// <summary>
