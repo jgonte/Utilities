@@ -20,11 +20,15 @@
         /// Validates the name if required
         /// </summary>
         /// <param name="named"></param>
-        public static void NameIsRequired(this INamed named)
+        public static void NameIsRequired(this INamed named, string message = null)
         {
             if (string.IsNullOrWhiteSpace(named.Name))
             {
-                throw new System.InvalidOperationException("Name is required");
+                throw new System.InvalidOperationException(
+                    string.IsNullOrWhiteSpace(message) ?
+                        "Name is required" :
+                        message
+                );
             }
         }
     }
