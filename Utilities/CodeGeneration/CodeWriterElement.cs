@@ -13,6 +13,8 @@ namespace CodeGeneration
 
         public T Builder { get; set; }
 
+        public CodeWriter CodeWriter => Builder;
+
         public abstract void Emit(TextWriter writer);
 
         public virtual void Indent(TextWriter writer)

@@ -9,9 +9,11 @@ namespace CodeGeneration
 
         public TextWriter Writer { get; private set; }
 
-        public CodeWriter(TextWriter writer)
+        public CodeWriter(TextWriter writer, int initialIndentation = 0)
         {
             Writer = writer;
+
+            Indentation = initialIndentation;
         }
 
         public void Dispose()
