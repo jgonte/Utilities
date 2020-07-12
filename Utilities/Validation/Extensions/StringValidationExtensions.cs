@@ -6,7 +6,7 @@ namespace Utilities.Validation
     {
         private static Regex _emailValidationRegex = new Regex(RegularExpressions.Email, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 
-        public static void ValidateNotEmpty(this string value, ValidationResult result, string propertyName, string message = null)
+        public static void ValidateRequired(this string value, ValidationResult result, string propertyName, string message = null)
         {
             if (string.IsNullOrEmpty(value))
             {

@@ -14,7 +14,7 @@ namespace Utilities.Tests.Validation
 
             var str = string.Empty;
 
-            str.ValidateNotEmpty(result, nameof(str));
+            str.ValidateRequired(result, nameof(str));
 
             Assert.IsFalse(result.IsValid);
 
@@ -32,7 +32,7 @@ namespace Utilities.Tests.Validation
 
             string str = null;
 
-            str.ValidateNotEmpty(result, nameof(str));
+            str.ValidateRequired(result, nameof(str));
 
             Assert.IsFalse(result.IsValid);
 
@@ -50,7 +50,7 @@ namespace Utilities.Tests.Validation
 
             var str = string.Empty;
 
-            str.ValidateNotEmpty(result, nameof(str), "Please provide a value for str");
+            str.ValidateRequired(result, nameof(str), "Please provide a value for str");
 
             Assert.IsFalse(result.IsValid);
 
@@ -68,7 +68,7 @@ namespace Utilities.Tests.Validation
 
             string str = "some text";
 
-            str.ValidateNotEmpty(result, nameof(str));
+            str.ValidateRequired(result, nameof(str));
 
             Assert.IsTrue(result.IsValid);
 
