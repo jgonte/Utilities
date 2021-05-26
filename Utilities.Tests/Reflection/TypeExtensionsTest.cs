@@ -104,5 +104,52 @@ namespace Utilities.Tests
             propertyType = propertyInfo.PropertyType;
             Assert.AreEqual(typeof(DateTime), propertyType.UnwrapType());
         }
+
+        [TestMethod()]
+        public void TypeExtensionsIsDefaultTest()
+        {
+            // Integer
+            var i = 0;
+
+            Assert.IsTrue(i.IsDefault());
+
+            object boxedI = i;
+
+            Assert.IsTrue(boxedI.IsDefault());
+
+            i = 1;
+
+            Assert.IsFalse(i.IsDefault());
+
+            boxedI = i;
+
+            Assert.IsFalse(boxedI.IsDefault());
+
+            // DateTime
+            var dateTime = new DateTime();
+
+            Assert.IsTrue(dateTime.IsDefault());
+
+            object boxedDateTime = dateTime;
+
+            Assert.IsTrue(boxedDateTime.IsDefault());
+
+            dateTime = new DateTime(1928, 5, 24);
+
+            Assert.IsFalse(dateTime.IsDefault());
+
+            boxedDateTime = dateTime;
+
+            Assert.IsFalse(boxedDateTime.IsDefault());
+
+            // Object
+            object o = null;
+
+            Assert.IsTrue(o.IsDefault());
+
+            o = "not null";
+
+            Assert.IsFalse(o.IsDefault());
+        }
     }
 }

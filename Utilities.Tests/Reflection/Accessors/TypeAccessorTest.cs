@@ -96,7 +96,7 @@ namespace Utilities.Tests
         }
 
         [TestMethod()]
-        public void TypeAccessorClassGetValueTest()
+        public void TypeAccessorClassGetValueNullNestedDataTest()
         {
             AccessedClass obj = new AccessedClass();
             TypeAccessor accessor = obj.GetTypeAccessor();
@@ -105,6 +105,26 @@ namespace Utilities.Tests
 
             Assert.AreEqual("Some text", accessor.GetValue(obj, "TextData"));
             Assert.AreEqual(427, accessor.GetValue(obj, "IntegerData"));
+            Assert.IsNull(accessor.GetValue(obj, "NestedData.NestedDateTimeData"));
+        }
+
+        [TestMethod()]
+        public void TypeAccessorClassGetValueTest()
+        {
+            AccessedClass obj = new AccessedClass();
+            TypeAccessor accessor = obj.GetTypeAccessor();
+            obj.TextData = "Some text";
+            obj.IntegerData = 427;
+            obj.NestedData = new NestedDataClass
+            {
+                NestedDateTimeData = new DateTime(1928, 5, 24),
+                NestedTextData = "Some nested text"
+            };
+
+            Assert.AreEqual("Some text", accessor.GetValue(obj, "TextData"));
+            Assert.AreEqual(427, accessor.GetValue(obj, "IntegerData"));
+            Assert.AreEqual(new DateTime(1928, 5, 24), accessor.GetValue(obj, "NestedData.NestedDateTimeData"));
+            Assert.AreEqual("Some nested text", accessor.GetValue(obj, "NestedData.NestedTextData"));
         }
 
         [TestMethod()]

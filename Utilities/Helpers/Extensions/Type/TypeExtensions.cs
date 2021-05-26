@@ -75,7 +75,33 @@ namespace Utilities
         /// <returns></returns>
         public static bool IsDefault<T>(this T value)
         {
-            return EqualityComparer<T>.Default.Equals(value, default(T));
+            if (value == null)
+            {
+                return true;
+            }
+
+            var defaultValue = default(T);
+
+            var type = value.GetType();
+
+            if (defaultValue == null && type.IsValueType) // Boxed value
+            {
+                if (type == typeof(int))
+                {
+                    return Convert.ToInt32(value) == default(int);
+                }
+
+                if (type == typeof(DateTime))
+                {
+                    return Convert.ToDateTime(value) == default(DateTime);
+                }
+
+                throw new NotImplementedException("Implement for other value types as needed");
+            }
+            else
+            {
+                return EqualityComparer<T>.Default.Equals(value, default(T));
+            }       
         }
 
         private static readonly ConcurrentDictionary<Type, object> _defaultValues = new ConcurrentDictionary<Type, object>(); // Cache the default values of the types
@@ -142,6 +168,7 @@ namespace Utilities
         public static object GetStaticProperty(this Type type, string property)
         {
             object result = null;
+
             try
             {
                 result = type.InvokeMember(property, BindingFlags.Static | BindingFlags.Public | BindingFlags.GetField | BindingFlags.GetProperty, null, type, null);

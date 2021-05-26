@@ -68,7 +68,12 @@ namespace Utilities
                 var typeAccessor = this; // The type accessor needs to change for each new target
 
                 foreach (var name in propertyNames)
-                { 
+                {
+                    if (!typeAccessor.PropertyAccessors.ContainsKey(name))
+                    {
+                        throw new InvalidOperationException($"Property: '{name}' not found for object of type: '{target.GetType().FullName}'");
+                    }
+
                     var propertyAccessor = typeAccessor.PropertyAccessors[name];
 
                     if (!propertyAccessor.CanSet)
@@ -99,6 +104,11 @@ namespace Utilities
             }
             else
             {
+                if (!PropertyAccessors.ContainsKey(propertyName))
+                {
+                    throw new InvalidOperationException($"Property: '{propertyName}' not found for object of type: '{target.GetType().FullName}'");
+                }
+
                 var propertyAccessor = PropertyAccessors[propertyName];
 
                 if (!propertyAccessor.CanSet)
@@ -137,19 +147,61 @@ namespace Utilities
         /// <returns>The value of the property</returns>
         public object GetValue(object target, string propertyName)
         {
-            if (!PropertyAccessors.ContainsKey(propertyName))
+            if (propertyName.Contains(".")) // Support nested properties
             {
-                throw new InvalidOperationException($"Property: '{propertyName}' not found for object of type: '{target.GetType().FullName}'") ;
+                var propertyNames = propertyName.Split('.');
+
+                var typeAccessor = this; // The type accessor needs to change for each new target
+
+                PropertyAccessor propertyAccessor = null;
+
+                foreach (var name in propertyNames)
+                {
+                    if (!typeAccessor.PropertyAccessors.ContainsKey(name))
+                    {
+                        throw new InvalidOperationException($"Property: '{name}' not found for object of type: '{target.GetType().FullName}'");
+                    }
+
+                    propertyAccessor = typeAccessor.PropertyAccessors[name];
+
+                    if (!propertyAccessor.CanGet)
+                    {
+                        throw new InvalidOperationException($"Can not get the value of property: '{propertyAccessor.PropertyName}'");
+                    }
+
+                    if (name != propertyNames.Last()) // Assume the last property as a scalar (primitive) value
+                    {
+                        var t = propertyAccessor.GetValue(target);
+
+                        if (t == null) // Nested property instance does not exist
+                        {
+                            return null;
+                        }
+
+                        target = t;
+
+                        typeAccessor = t.GetTypeAccessor();
+                    }
+                }
+
+                return propertyAccessor.GetValue(target);
             }
-
-            PropertyAccessor propertyAccessor = PropertyAccessors[propertyName];
-
-            if (!propertyAccessor.CanGet)
+            else
             {
-                throw new InvalidOperationException($"Can not get the value of property: '{propertyAccessor.PropertyName}'");
-            }
+                if (!PropertyAccessors.ContainsKey(propertyName))
+                {
+                    throw new InvalidOperationException($"Property: '{propertyName}' not found for object of type: '{target.GetType().FullName}'");
+                }
 
-            return propertyAccessor.GetValue(target);
+                PropertyAccessor propertyAccessor = PropertyAccessors[propertyName];
+
+                if (!propertyAccessor.CanGet)
+                {
+                    throw new InvalidOperationException($"Can not get the value of property: '{propertyAccessor.PropertyName}'");
+                }
+
+                return propertyAccessor.GetValue(target);
+            }
         }
 
         /// <summary>
