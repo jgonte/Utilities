@@ -12,6 +12,7 @@
         Char,
         String,
         DateTime,
+        DateTimeOffset,
         Date,
         Timestamp,
         Guid,
@@ -20,7 +21,7 @@
         Uri,
         Email,
         UserId, // Special marker type to manage persisting the id of the user to the data store
-        Object,
+        Object
         // Value objects should belong
         //Money,
         //Enumeration,

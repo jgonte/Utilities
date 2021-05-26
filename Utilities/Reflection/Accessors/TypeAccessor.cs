@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Utilities
@@ -60,14 +61,53 @@ namespace Utilities
         /// <param name="value">The value to set</param>
         public void SetValue(object target, string propertyName, object value)
         {
-            PropertyAccessor propertyAccessor = PropertyAccessors[propertyName];
-
-            if (!propertyAccessor.CanSet)
+            if (propertyName.Contains(".")) // Support nested properties
             {
-                throw new InvalidOperationException($"Can not set the value of property: '{propertyAccessor.PropertyName}'.Verify that the declaring type is not a value type(such as struct)");
-            }
+                var propertyNames = propertyName.Split('.');
 
-            propertyAccessor.SetValue(target, value);
+                var typeAccessor = this; // The type accessor needs to change for each new target
+
+                foreach (var name in propertyNames)
+                { 
+                    var propertyAccessor = typeAccessor.PropertyAccessors[name];
+
+                    if (!propertyAccessor.CanSet)
+                    {
+                        throw new InvalidOperationException($"Can not set the value of property: '{propertyAccessor.PropertyName}'.Verify that the declaring type is not a value type(such as struct)");
+                    }
+
+                    if (name == propertyNames.Last()) // Assume the last property as a scalar (primitive) value
+                    {
+                        propertyAccessor.SetValue(target, value);
+                    }
+                    else
+                    {
+                        var t = propertyAccessor.GetValue(target);
+
+                        if (t == null) // Nested property instance does not exist
+                        {
+                            t = Activator.CreateInstance(propertyAccessor.PropertyType);
+
+                            propertyAccessor.SetValue(target, t);
+                        }
+
+                        target = t;
+
+                        typeAccessor = t.GetTypeAccessor();
+                    }                   
+                }
+            }
+            else
+            {
+                var propertyAccessor = PropertyAccessors[propertyName];
+
+                if (!propertyAccessor.CanSet)
+                {
+                    throw new InvalidOperationException($"Can not set the value of property: '{propertyAccessor.PropertyName}'.Verify that the declaring type is not a value type(such as struct)");
+                }
+
+                propertyAccessor.SetValue(target, value);
+            }            
         }
 
         /// <summary>

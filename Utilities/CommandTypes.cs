@@ -14,7 +14,9 @@
         DeleteCollection,
         Activate,
         Inactivate,
-        CustomUpdate
+        Custom,
+        CustomUpdate,
+        CustomDelete
     }
 
     /// <summary>

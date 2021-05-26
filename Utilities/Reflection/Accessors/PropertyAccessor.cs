@@ -101,6 +101,13 @@ namespace Utilities
                 }
             }
 
+            if (value is DateTime && PropertyType == typeof(DateTimeOffset))
+            {
+                DateTimeOffset dateTimeOffset = new DateTimeOffset((DateTime)value);
+
+                value = dateTimeOffset;
+            }
+
             _setter(target, value);
         }
 

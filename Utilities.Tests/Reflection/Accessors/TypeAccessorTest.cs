@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -55,6 +56,13 @@ namespace Utilities.Tests
         {
             public string TextData { get; set; }
             public int IntegerData { get; set; }
+            public NestedDataClass NestedData { get; set; }
+        }
+
+        public class NestedDataClass
+        {
+            public string NestedTextData { get; set; }
+            public DateTime NestedDateTimeData { get; set; }
         }
 
         public interface IAccessed
@@ -78,9 +86,13 @@ namespace Utilities.Tests
 
             accessor.SetValue(obj, "TextData", "Some text");
             accessor.SetValue(obj, "IntegerData", 427);
+            accessor.SetValue(obj, "NestedData.NestedTextData", "Some nested text");
+            accessor.SetValue(obj, "NestedData.NestedDateTimeData", new DateTime(1928, 5, 24));
 
             Assert.AreEqual("Some text", obj.TextData);
             Assert.AreEqual(427, obj.IntegerData);
+            Assert.AreEqual("Some nested text", obj.NestedData.NestedTextData);
+            Assert.AreEqual(new DateTime(1928, 5, 24), obj.NestedData.NestedDateTimeData);
         }
 
         [TestMethod()]

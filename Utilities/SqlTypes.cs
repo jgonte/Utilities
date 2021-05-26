@@ -16,11 +16,14 @@
         Date,
         Time,
         DateTime,
+        DateTimeOffset,
         Timestamp,
         Clob,
         Blob,
         Guid,
         Money,
-        UserId // Special marker for the data type to store the identity of the user
+        UserId, // Special marker for the data type to store the identity of the user
+        Binary,
+        RowVersion
     }
 }

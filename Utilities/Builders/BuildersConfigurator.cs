@@ -73,7 +73,12 @@ namespace Utilities.Builders
         /// <returns></returns>
         public BuildersConfigurator<T, E> Configure(string name, Action<T> configure)
         {
-            var builder = Builders.Single(b => b.Name == name);
+            var builder = Builders.SingleOrDefault(b => b.Name == name);
+
+            if (builder == null)
+            {
+                throw new InvalidOperationException($"There is no builder with name: {name}");
+            }
 
             configure(builder);
 

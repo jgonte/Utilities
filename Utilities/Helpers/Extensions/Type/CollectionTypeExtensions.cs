@@ -37,6 +37,11 @@ namespace Utilities
                 return false;
             }
 
+            if (type == typeof(byte[])) // The binary type is a collection of bytes
+            {
+                return false;
+            }
+
             return type.HasSomeInterfaceOf("IEnumerable");
         }
 

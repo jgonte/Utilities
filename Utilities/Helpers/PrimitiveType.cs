@@ -33,6 +33,7 @@ namespace Utilities
         // Special
         Guid,
         DateTime,
+        DateTimeOffset,
         Object
     };
 
@@ -72,9 +73,13 @@ namespace Utilities
                 typeof(double),
                 typeof(decimal),
 
+                // Binary
+                typeof(byte[]),
+
                 // Special
                 typeof(Guid),
                 typeof(DateTime),
+                typeof(DateTimeOffset),
                 typeof(object)
                 
                 // Add primitive types here
@@ -121,96 +126,6 @@ namespace Utilities
         public static bool IsPrimitive(this object target)
         {
             return IsPrimitive(target.GetType());
-        }
-
-        public static PrimitiveTypes GetPrimitive(Type type)
-        {
-            if (type == typeof(string))
-            {
-                return Utilities.PrimitiveTypes.String;
-            }
-
-            if (type == typeof(char))
-            {
-                return Utilities.PrimitiveTypes.Character;
-            }
-
-            if (type == typeof(bool))
-            {
-                return Utilities.PrimitiveTypes.Boolean;
-            }
-
-            if (type == typeof(sbyte))
-            {
-                return Utilities.PrimitiveTypes.SignedByte;
-            }
-
-            if (type == typeof(byte))
-            {
-                return Utilities.PrimitiveTypes.Byte;
-            }
-
-            if (type == typeof(short))
-            {
-                return Utilities.PrimitiveTypes.Short;
-            }
-
-            if (type == typeof(ushort))
-            {
-                return Utilities.PrimitiveTypes.UnsignedShort;
-            }
-
-            if (type == typeof(int))
-            {
-                return Utilities.PrimitiveTypes.Int;
-            }
-
-            if (type == typeof(uint))
-            {
-                return Utilities.PrimitiveTypes.UnsignedInt;
-            }
-
-            if (type == typeof(long))
-            {
-                return Utilities.PrimitiveTypes.Long;
-            }
-
-            if (type == typeof(ulong))
-            {
-                return Utilities.PrimitiveTypes.UnsignedLong;
-            }
-
-            if (type == typeof(float))
-            {
-                return Utilities.PrimitiveTypes.Float;
-            }
-
-            if (type == typeof(double))
-            {
-                return Utilities.PrimitiveTypes.Double;
-            }
-
-            if (type == typeof(decimal))
-            {
-                return Utilities.PrimitiveTypes.Decimal;
-            }
-
-            if (type == typeof(Guid))
-            {
-                return Utilities.PrimitiveTypes.Guid;
-            }
-
-            if (type == typeof(DateTime))
-            {
-                return Utilities.PrimitiveTypes.DateTime;
-            }
-
-            if (type == typeof(object))
-            {
-                return Utilities.PrimitiveTypes.Object;
-            }
-
-            throw new NotImplementedException("No primitive type defined for type: " + type);
         }
 
         #endregion
