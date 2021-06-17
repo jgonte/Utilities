@@ -1,6 +1,6 @@
 ﻿namespace Utilities
 {
-    public enum SingleValuedFieldComparisonOperators
+    public enum SingleValueComparisonOperators
     {
         Equal = 0,
         NotEqual,
@@ -10,7 +10,7 @@
         GreaterThanOrEqual
     }
 
-    public enum MultiplleValuedFieldComparisonOperators
+    public enum MultipleValueComparisonOperators
     {
         IsIn = 0
     }

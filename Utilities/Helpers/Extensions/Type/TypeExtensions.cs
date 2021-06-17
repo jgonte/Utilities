@@ -96,12 +96,22 @@ namespace Utilities
                     return Convert.ToDateTime(value) == default(DateTime);
                 }
 
+                if (type == typeof(Guid))
+                {
+                    return Cast<Guid>(value) == Guid.Empty;
+                }
+
                 throw new NotImplementedException("Implement for other value types as needed");
             }
             else
             {
                 return EqualityComparer<T>.Default.Equals(value, default(T));
             }       
+        }
+
+        private static T Cast<T>(object value)
+        {
+            return (T)value;
         }
 
         private static readonly ConcurrentDictionary<Type, object> _defaultValues = new ConcurrentDictionary<Type, object>(); // Cache the default values of the types

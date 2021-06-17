@@ -16,7 +16,7 @@
 
         public static void ValidateRequired<T>(this T value, ValidationResult result, string propertyName, string message = null)
         {
-            if (value.Equals(default(T)))
+            if (value.IsDefault())
             {
                 result.Errors.Add(new ValidationError
                 {

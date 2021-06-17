@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Utilities
 {
     public static class NumericExtensions
-    {        
+    {
         public static bool IsGreaterThan<T>(this T value, T other) where T : IComparable<T>
         {
             return Comparer<T>.Default.Compare(value, other) > 0;

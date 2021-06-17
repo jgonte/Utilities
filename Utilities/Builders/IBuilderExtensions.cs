@@ -4,7 +4,7 @@ namespace Utilities.Builders
 {
     public static class IBuilderExtensions
     {
-        public static T FindParentBuilder<T>(this IBuilder builder)
+        public static T FindParentBuilder<T>(this IBuilder builder, bool throwIfNotFound = true)
         {
             var parentBuilder = builder.ParentBuilder;
 
@@ -13,7 +13,7 @@ namespace Utilities.Builders
                 parentBuilder = parentBuilder.ParentBuilder;
             }
 
-            if (parentBuilder == null)
+            if (parentBuilder == null && throwIfNotFound)
             {
                 throw new InvalidOperationException($"Unable to find parent builder of type: '{typeof(T)}'");
             }

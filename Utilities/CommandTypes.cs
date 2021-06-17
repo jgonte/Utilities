@@ -29,6 +29,7 @@
         Unlink,     // Unlink any linked entity
         Replace,
         Add,
-        Relink
+        Relink,
+        Create
     }
 }
