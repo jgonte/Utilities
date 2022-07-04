@@ -6,6 +6,7 @@
         Varchar,
         NVarchar,
         Boolean,
+        TinyInt,
         SmallInt,
         Integer,
         Decimal,

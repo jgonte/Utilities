@@ -5,6 +5,7 @@
         Boolean,
         Byte,
         Integer,
+        TinyInteger,
         UnsignedInteger,
         Long,
         Float,
