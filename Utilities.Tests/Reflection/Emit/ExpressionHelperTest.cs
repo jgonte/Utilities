@@ -58,7 +58,7 @@ namespace Utilities.Tests
             Type to = typeof(int?);
             UnaryExpression cast = ExpressionHelper.Cast(from, to);
 
-            Assert.AreEqual("Convert(34)", cast.ToString());
+            Assert.AreEqual("Convert(34, Nullable`1)", cast.ToString());
         }
 
         [TestMethod()]
